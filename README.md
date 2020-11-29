@@ -1,1 +1,0 @@
-# wsyear.github.io
