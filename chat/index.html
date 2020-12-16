@@ -19,7 +19,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>关于 - Wsyear&#39;s BLOG</title>
+  <title>说说 - Wsyear&#39;s BLOG</title>
   
 
   
@@ -63,6 +63,8 @@
       <p class="title"></p>
       <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
         <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
       </ul>
     </div>
@@ -425,7 +427,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper docs dock' style="display: none;">
+        <div id="full" class='cover-wrapper artitalk dock' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -502,8 +504,8 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-<div class='l_main no_sidebar'>
-  <article class="article post white-box reveal md shadow article-type-docs" id="docs" itemscope itemprop="blogPost">
+<div class='l_main'>
+    <article class="article post white-box reveal md shadow article-type-artitalk" id="artitalk" itemscope itemprop="blogPost">
   
 
 
@@ -516,29 +518,11 @@
 
 
   
-  <p>欢迎访问 $\tt{wsyear’s BLOG}$ ，任何问题可在下方评论区留言反馈。</p>
-
+    <div id="artitalk_main"></div>
   
   
-    
-    <div class='footer'>
-      
-      
-      
-      
-    </div>
   
   
-    
-
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-    </div>
-  </div>
-
-
   
   
 
@@ -618,10 +602,45 @@
 </div>
 <aside class='l_side'>
   
+  
+    
+    
+
+
+
+
+  
+
 
 </aside>
 
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk"></script>
+<script>
+    new Artitalk({
+        appId: "vVFq9IlfVI6Ni8ivrf4YLYfQ-MdYXbMMI",
+        appKey: "bcVD5QFeNNrVQBkuQpbTHkeT",
+  
+  
+        lang: "zh",
+  
+  
+        pageSize: "20",
+  
+  
+        shuoPla: "说，你说，你来说说！",
+  
+  
+  
+        motion: 1,
+  
+  
+  
+  
+  
+  
+})
+</script>
 
         
         
@@ -633,7 +652,7 @@
   pdata.ispage=false;
   pdata.postTitle="";
   pdata.commentPath="";
-  pdata.commentPlaceholder="有什么想对我说的呢？";
+  pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
