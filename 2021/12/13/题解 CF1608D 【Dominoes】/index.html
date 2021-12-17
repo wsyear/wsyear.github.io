@@ -1,0 +1,527 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这个蒟蒻什么也不会，只会咕咕咕">
+  <meta name="author" content="wsyear">
+  <meta name="keywords" content="">
+  <meta name="description" content="前言：这可能是蒟蒻能写出来的计数题的难度上限了qwq 题意简述让你给 $n$ 个多米诺骨牌黑白染色，每个骨牌有两个格子。 若将这 $n$ 个骨牌重新排列后至少存在一种方案，使得 $\forall i$，第i个骨牌右边格子颜色与第 $(i\mod n)+1$ 个骨牌左边颜色不同，则这种染色方法合法。 问你有几种合法的染色方案。 可能不是讲得很清楚，看不懂去看英文题面吧（逃 思路简述首先通过观察，我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 CF1608D 【Dominoes】">
+<meta property="og:url" content="http://wsyear.github.io/2021/12/13/%E9%A2%98%E8%A7%A3%20CF1608D%20%E3%80%90Dominoes%E3%80%91/index.html">
+<meta property="og:site_name" content="蒟蒻之家">
+<meta property="og:description" content="前言：这可能是蒟蒻能写出来的计数题的难度上限了qwq 题意简述让你给 $n$ 个多米诺骨牌黑白染色，每个骨牌有两个格子。 若将这 $n$ 个骨牌重新排列后至少存在一种方案，使得 $\forall i$，第i个骨牌右边格子颜色与第 $(i\mod n)+1$ 个骨牌左边颜色不同，则这种染色方法合法。 问你有几种合法的染色方案。 可能不是讲得很清楚，看不懂去看英文题面吧（逃 思路简述首先通过观察，我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/1xc0lu9x.png">
+<meta property="article:published_time" content="2021-12-13T14:04:36.000Z">
+<meta property="article:modified_time" content="2021-12-17T09:31:27.313Z">
+<meta property="article:author" content="wsyear">
+<meta property="article:tag" content="题解">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/1xc0lu9x.png">
+  
+  <title>题解 CF1608D 【Dominoes】 - 蒟蒻之家</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"wsyear.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280702615,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>蒟蒻之家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="题解 CF1608D 【Dominoes】">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-13 22:04" pubdate>
+        2021年12月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">题解 CF1608D 【Dominoes】</h1>
+            
+            <div class="markdown-body">
+              <p><del><strong>前言：这可能是蒟蒻能写出来的计数题的难度上限了qwq</strong></del></p>
+<h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>让你给 $n$ 个多米诺骨牌黑白染色，每个骨牌有两个格子。</p>
+<p>若将这 $n$ 个骨牌重新排列后<strong>至少存在</strong>一种方案，使得 $\forall i$，第i个骨牌右边格子颜色与第 $(i\mod n)+1$ 个骨牌左边颜色不同，则这种染色方法合法。</p>
+<p>问你有几种<strong>合法</strong>的染色方案。</p>
+<p><del>可能不是讲得很清楚，看不懂去看英文题面吧（逃</del></p>
+<h2 id="思路简述"><a href="#思路简述" class="headerlink" title="思路简述"></a>思路简述</h2><p>首先通过观察，我们发现对于任意一种合法的染色方案：</p>
+<ul>
+<li><p><code>BB</code>和<code>WW</code>这两种颜色类型的骨牌数量一定是相等的。</p>
+</li>
+<li><p>如果有<code>BW</code>和<code>WB</code>种类的骨牌，那么至少要有 $1$ 个<code>BB</code>和 $1$ 个<code>WW</code>类型的骨牌。</p>
+</li>
+</ul>
+<p>而且这两个条件是合法染色方案的充要条件。接下来是对以上两个结论的感性证明：</p>
+<ul>
+<li>对于第一条结论，我们可以认为<code>WW</code>与<code>BB</code>为骨牌序列的<strong>转折点</strong>，因为一个连续的<code>WB</code>序列后面跟上一个<code>WW</code>序列后，后面就会变成连续的<code>BW</code>序列。因为所有的序列构成一个环后始终符合条件。所以，我们可以清晰地看到，两种转折点地数量一定相等。</li>
+</ul>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1xc0lu9x.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>可以来张图片：我们认为<code>BW</code>的连续序列为橙色线段，<code>WB</code>的连续序列为绿色线段。那么黑点表示<code>BB</code>，作为<code>BW</code>与<code>WB</code>的转折点；灰点表示<code>WW</code>，作为<code>WB</code>与<code>BW</code>的转折点。因为最后环上一定是橙绿线段首尾衔接的，所以橙线段与绿线段数量相等，黑点与灰点数量相等，所以<code>BB</code>与<code>WW</code>数量也就一样多了。</p>
+</li>
+<li><p>对于第二条结论，如果<code>BW</code>与<code>WB</code>都存在，那么必定存在至少一个转折点，所以必定有<code>WW</code>与<code>BB</code>。</p>
+</li>
+</ul>
+<p><strong>性质观察完了，我们开始想想应该怎么算。</strong></p>
+<p>我们先定义：出现在一个骨牌左边的<code>W</code>为<code>W1</code>，右边的<code>W</code>为<code>W2</code>。同理，有<code>B1</code>，<code>B2</code>，<code>Q1</code>与<code>Q2</code>（<code>Q</code>表示<code>?</code>）。假设<code>B1</code>有 $i$ 个，<code>W2</code>也有 $i$ 个，那么可得<code>B2</code>有 $n-i$ 个，<code>W1</code>也有 $n-i$ 个。枚举这个 $i$ 即可算出<strong>大致合法</strong>的有几个，公式为：</p>
+<p>$$\sum\limits_{i=1}^n C_{Q1}^{i-B1}\times C_{Q2}^{n-i-B2}$$</p>
+<p>但是这并不符合我们推出来的结论，我们想想他们之间的差距在哪里。</p>
+<p>经过观察，我们发现，不符合第二条结论的情况会被数进去。因此要减去有<code>BW</code>与<code>WB</code>但是没有<code>WW</code>与<code>BB</code>的情况。我们可以先减去没有<code>WW</code>与<code>BB</code>的情况，再加回只有<code>WB</code>与<code>BW</code>的情况。</p>
+<p>要算没有<code>BB</code>与<code>WW</code>的情况，由于<code>BB</code>和<code>WW</code>的数量一定相等，所以如果已经有<code>BB</code>或<code>WW</code>了，那么就不用减。减的数量为：</p>
+<p>$$2^{??}$$</p>
+<p>因为只有<code>??</code>可以构造出<code>BW</code>与<code>WB</code>两种情况，其他的<code>W?</code>,<code>?W</code>,<code>?B</code>,<code>B?</code>都只能构造出一种不是<code>BB</code>且不是<code>WW</code>的情况，相当于乘了 $1$，等于没乘。</p>
+<p>最后，还要算只有<code>WB</code>与<code>BW</code>的情况，那么有两种情况会加 $1$：</p>
+<ul>
+<li><p><code>W1</code>与<code>B2</code>都是 $0$。</p>
+</li>
+<li><p><code>B1</code>与<code>W2</code>都是 $0$。</p>
+</li>
+</ul>
+<p>好了，总算算完了。所以最后的公式是：</p>
+<p>$$\sum\limits_{i=1}^n C_{Q1}^{i-B1}\times C_{Q2}^{n-i-B2}-[bb=0&amp;ww=0]\times 2^{??}+[w1=0&amp;b2=0]+[b1=0&amp;w2=0]$$</p>
+<h2 id="蒟蒻代码"><a href="#蒟蒻代码" class="headerlink" title="蒟蒻代码"></a>蒟蒻代码</h2><p><strong>Talk is cheap, show me the code.</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> mod 998244353</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> int long long</span><br><span class="hljs-keyword">int</span> n,cnt[<span class="hljs-number">3</span>][<span class="hljs-number">3</span>];<br>string s;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">change</span><span class="hljs-params">(<span class="hljs-keyword">char</span> x)</span></span>&#123;<br>	<span class="hljs-keyword">if</span>(x==<span class="hljs-string">&#x27;?&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x==<span class="hljs-string">&#x27;W&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x==<span class="hljs-string">&#x27;B&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>&#125;<span class="hljs-comment">//将字符转化为数字，方便统计</span><br><span class="hljs-keyword">int</span> inv[<span class="hljs-number">100010</span>],fact[<span class="hljs-number">100010</span>],ifact[<span class="hljs-number">100010</span>];<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123;<br>	inv[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>	<span class="hljs-built_in">For</span>(i,<span class="hljs-number">2</span>,<span class="hljs-number">100000</span>) inv[i]=(mod-mod/i)*inv[mod%i]%mod;<br>	fact[<span class="hljs-number">0</span>]=ifact[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>	<span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,<span class="hljs-number">100000</span>) fact[i]=fact[i<span class="hljs-number">-1</span>]*i%mod;<br>	<span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,<span class="hljs-number">100000</span>) ifact[i]=ifact[i<span class="hljs-number">-1</span>]*inv[i]%mod;<br>&#125;<span class="hljs-comment">//阶乘预处理，用来算组合数</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">C</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n,<span class="hljs-keyword">int</span> m)</span></span>&#123;<br>	<span class="hljs-keyword">if</span>(n&lt;m||m&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">return</span> fact[n]*ifact[m]%mod*ifact[n-m]%mod;<br>&#125;<span class="hljs-comment">//组合数的简单计算</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qpow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> p)</span></span>&#123;<br>	<span class="hljs-keyword">if</span>(p==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">int</span> qwq=<span class="hljs-built_in">qpow</span>(a,p/<span class="hljs-number">2</span>);<br>	<span class="hljs-keyword">if</span>(p%<span class="hljs-number">2</span>==<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> qwq*qwq%mod*a%mod;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> qwq*qwq%mod;<br>&#125;<span class="hljs-comment">//快速幂模板</span><br><span class="hljs-function"><span class="hljs-keyword">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-built_in">init</span>();<br>	n=<span class="hljs-built_in">read</span>();<br>	<span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,n)&#123;<br>		cin&gt;&gt;s;<br>		cnt[<span class="hljs-built_in">change</span>(s[<span class="hljs-number">0</span>])][<span class="hljs-built_in">change</span>(s[<span class="hljs-number">1</span>])]++;<span class="hljs-comment">//统计各种类型的数量</span><br>	&#125;<br>	<span class="hljs-keyword">int</span> w1=cnt[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]+cnt[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]+cnt[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>];<span class="hljs-comment">//算w1</span><br>	<span class="hljs-keyword">int</span> b1=cnt[<span class="hljs-number">2</span>][<span class="hljs-number">0</span>]+cnt[<span class="hljs-number">2</span>][<span class="hljs-number">1</span>]+cnt[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>];<span class="hljs-comment">//算b1</span><br>	<span class="hljs-keyword">int</span> w2=cnt[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]+cnt[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]+cnt[<span class="hljs-number">2</span>][<span class="hljs-number">1</span>];<span class="hljs-comment">//算w2</span><br>	<span class="hljs-keyword">int</span> b2=cnt[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]+cnt[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]+cnt[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>];<span class="hljs-comment">//算b2</span><br>	<span class="hljs-keyword">int</span> q1=n-w1-b1,q2=n-w2-b2;<span class="hljs-comment">//算q1和q2</span><br>	<span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">For</span>(i,<span class="hljs-number">0</span>,n) ans=(ans+<span class="hljs-built_in">C</span>(q1,i-b1)*<span class="hljs-built_in">C</span>(q2,n-i-b2))%mod;<span class="hljs-comment">//先算第一个sigma</span><br>	<span class="hljs-keyword">if</span>(cnt[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]==<span class="hljs-number">0</span>&amp;&amp;cnt[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>]==<span class="hljs-number">0</span>) ans-=<span class="hljs-built_in">qpow</span>(<span class="hljs-number">2</span>,cnt[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]);<span class="hljs-comment">//减去没有WW和BB的</span><br>	<span class="hljs-keyword">if</span>(w1==<span class="hljs-number">0</span>&amp;&amp;b2==<span class="hljs-number">0</span>) ans++;<br>	<span class="hljs-keyword">if</span>(b1==<span class="hljs-number">0</span>&amp;&amp;w2==<span class="hljs-number">0</span>) ans++;<span class="hljs-comment">//加回只有BW和WB的</span><br>	cout&lt;&lt;ans&lt;&lt;endl;<span class="hljs-comment">//Happy Ending</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/15/%E9%A2%98%E8%A7%A3%20CF1591D%20%E3%80%90Yet%20Another%20Sorting%20Problem%E3%80%91/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">题解 CF1591D 【Yet Another Sorting Problem】</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/13/%E9%A2%98%E8%A7%A3%20CF1608B%20%E3%80%90Build%20the%20Permutation%E3%80%91/">
+                        <span class="hidden-mobile">题解 CF1608B 【Build the Permutation】</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        还没有备案
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=没有备案"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>还没有备案</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+    <!-- cnzz Analytics Icon -->
+    <span id="cnzz_stat_icon_1280702615" style="display: none"></span>
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

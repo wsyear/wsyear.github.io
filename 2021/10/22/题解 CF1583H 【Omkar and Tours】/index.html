@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这个蒟蒻什么也不会，只会咕咕咕">
+  <meta name="author" content="wsyear">
+  <meta name="keywords" content="">
+  <meta name="description" content="2021.10.27 Update: 修正了I_am_Accepted提出的询问。 一篇来自蒟蒻的题解，不喜误喷，有误请私信。 题意简述给一幅 $n$ 个点的树，每条边都有两个值：$c$ 与 $t$，其中 $c$ 表示这条边能承载的最大的重量，$t$ 表示通过这条边所需要的花费。每个点也有一个点权 $e$，表示这个点的有趣程度。两个点之间路径的费用是这两个点之间的路径的所有花费中最大的值。现在有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 CF1583H 【Omkar and Tours】">
+<meta property="og:url" content="http://wsyear.github.io/2021/10/22/%E9%A2%98%E8%A7%A3%20CF1583H%20%E3%80%90Omkar%20and%20Tours%E3%80%91/index.html">
+<meta property="og:site_name" content="蒟蒻之家">
+<meta property="og:description" content="2021.10.27 Update: 修正了I_am_Accepted提出的询问。 一篇来自蒟蒻的题解，不喜误喷，有误请私信。 题意简述给一幅 $n$ 个点的树，每条边都有两个值：$c$ 与 $t$，其中 $c$ 表示这条边能承载的最大的重量，$t$ 表示通过这条边所需要的花费。每个点也有一个点权 $e$，表示这个点的有趣程度。两个点之间路径的费用是这两个点之间的路径的所有花费中最大的值。现在有">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-22T02:28:59.000Z">
+<meta property="article:modified_time" content="2021-12-17T09:27:30.042Z">
+<meta property="article:author" content="wsyear">
+<meta property="article:tag" content="题解">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>题解 CF1583H 【Omkar and Tours】 - 蒟蒻之家</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"wsyear.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280702615,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>蒟蒻之家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="题解 CF1583H 【Omkar and Tours】">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-22 10:28" pubdate>
+        2021年10月22日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">题解 CF1583H 【Omkar and Tours】</h1>
+            
+            <div class="markdown-body">
+              <p><strong>2021.10.27 Update:</strong> 修正了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/101868">I_am_Accepted</a>提出的询问。</p>
+<p>一篇来自蒟蒻的题解，不喜误喷，有误请私信。</p>
+<h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给一幅 $n$ 个点的树，每条边都有两个值：$c$ 与 $t$，其中 $c$ 表示这条边能承载的最大的重量，$t$ 表示通过这条边所需要的花费。每个点也有一个点权 $e$，表示这个点的有趣程度。两个点之间路径的费用是这两个点之间的路径的所有花费中最大的值。现在有 $q$ 组询问，每组询问给出两个值 $v$ 与 $x$，表示有一辆重量为 $v$ 车从 $x$ 点出发，问你这辆车能到达的所有点中有趣程度最大的那个点的有趣程度，以及到达这些点的所有路径中的花费的最大值。</p>
+<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><blockquote>
+<p>想A掉一道复杂的题，先从她的简化版开始分析。</p>
+</blockquote>
+<p>假设所有的点的有趣程度各不相同，那么我们可以用离线的做法。处理询问时，我们可以先将所有的询问按照 $v$ 值排序，<strong>从大到小</strong>还是<strong>从小到大</strong>呢？</p>
+<p>如果我们要从小到大排序的话，我们就要进行删边操作，有没有什么数据结构支持删边维护连通块的呢？似乎没有，有也很难操作。</p>
+<p>因此，我们选择按照 $v$ 值从大到小来排序询问。加边操作只要用一个并查集来维护连通块即可。因此我们可以先将这棵树跑一边dfs，然后用倍增算出 $fa$ 与 $mxval$ 两个数组。其中 $fa[u][i]$ 表示 $u$ 的第 $2^i$ 辈祖先是谁，$mxval[u][i]$ 表示点 $u$ 向上的 $2^i$ 条边中 $t$ 值的最大值。然后就可以 $\log_n$ 求出两点间的距离了（这不是模板吗）。</p>
+<p>然后将所有边按照 $c$ 值排序，一条条加边，当加到的边的 $c$ 值到某一组询问的 $v$ 值时，查询一下就好了。</p>
+<p>加边的时候合并并查集，每个并查集内记录有趣程度最大的值的编号，输出的时候就很方便了，最大值是 $e[u]$ ，距离就是 $x$ 与 $u$ 之间的距离。</p>
+<blockquote>
+<p>想完了简化版的题目，想想简化版的与标准版的有什么区别</p>
+</blockquote>
+<p>我们发现，一个并查集内可能有多个 $e$ 值最大的点。</p>
+<p>做法是在每个并查集中记录两个值：$mxi$ 与 $mx$，其中 $mxi$ 表示这个并查集中 $e$ 值最大的点的编号，$mx$ 表示记录编号的那个点到并查集中其他 $e$ 值最大的点的最大距离。合并的时候比较一下两个并查集中 $e[mxi]$ 的大小。</p>
+<p>假设我们要合并两个并查集的根为 $u$ 与 $v$，并且合并后以 $u$ 作为根。那么分类讨论：</p>
+<ul>
+<li><p>$mxi[u]=mxi[u],mx[u]=mx[u]$，当满足 $e[mxi[u]]&gt;e[mxi[v]]$</p>
+</li>
+<li><p>$mxi[u]=mxi[v],mx[u]=mx[v]$，当满足 $e[mxi[u]]&lt;e[mxi[v]]$</p>
+</li>
+<li><p>$mxi[u]=mxi[u],mx[u]=\max(mx[u],mx[v],getmx(mxi[u],mxi[v]))$，当满足 $e[mxi[u]]=e[mxi[v]]$</p>
+</li>
+</ul>
+<p>其中 $getmx(u,v)$ 表示从 $u$ 点到 $v$ 点的路径的花费。</p>
+<p>前两个都很好理解，只有 $mx[u]=\max(mx[u],mx[v],getmx(mxi[u],mxi[v]))$ 可能要稍微想一下。因为他们的最大值要么是在 $u$ 的块中，要么是在 $v$ 的块中，要么就是经过新加的边的一条路经，而这条路径的花费就是 $getmx(mxi[u],mxi[v])$，所以取个max就好了。</p>
+<p>问题就这样被解决了……</p>
+<p>代码细节应该还好，虽然我交了几发才A，一定是wtcl。</p>
+<h3 id="Talk-is-cheap-show-me-the-code"><a href="#Talk-is-cheap-show-me-the-code" class="headerlink" title="Talk is cheap, show me the code!"></a>Talk is cheap, show me the code!</h3><p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1583/submission/132659594">Codeforces Status</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-keyword">int</span> n,q;<br><span class="hljs-keyword">int</span> fun[<span class="hljs-number">200010</span>];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Edge</span>&#123;</span><br>    <span class="hljs-keyword">int</span> u,v,c,t;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Edge &amp;p)<span class="hljs-keyword">const</span>&#123;<br>        <span class="hljs-keyword">return</span> c&gt;p.c;<br>    &#125;<br>&#125;rec[<span class="hljs-number">200010</span>];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Qry</span>&#123;</span><br>    <span class="hljs-keyword">int</span> v,x,ans,ansi,id;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Qry &amp;p)<span class="hljs-keyword">const</span>&#123;<br>        <span class="hljs-keyword">return</span> v&gt;p.v;<br>    &#125;<br>&#125;qry[<span class="hljs-number">200010</span>];<br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">reorder</span><span class="hljs-params">(Qry x,Qry y)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> x.id&lt;y.id;<br>&#125;<br>vector&lt;Edge&gt; e[<span class="hljs-number">200010</span>];<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v,<span class="hljs-keyword">int</span> c,<span class="hljs-keyword">int</span> t)</span></span>&#123;e[u].<span class="hljs-built_in">pb</span>((Edge)&#123;u,v,c,t&#125;);&#125;<br><span class="hljs-keyword">int</span> dep[<span class="hljs-number">200010</span>],fa[<span class="hljs-number">200010</span>][<span class="hljs-number">25</span>],mxval[<span class="hljs-number">200010</span>][<span class="hljs-number">25</span>];<br><span class="hljs-keyword">int</span> father[<span class="hljs-number">200010</span>],sz[<span class="hljs-number">200010</span>],mxi[<span class="hljs-number">200010</span>],mx[<span class="hljs-number">200010</span>];<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getmx</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(dep[u]&lt;dep[v]) <span class="hljs-built_in">swap</span>(u,v);<br>    <span class="hljs-keyword">int</span> dc=dep[u]-dep[v];<br>    <span class="hljs-built_in">Ror</span>(i,<span class="hljs-number">0</span>,<span class="hljs-number">20</span>) <span class="hljs-keyword">if</span>(dc&amp;(<span class="hljs-number">1</span>&lt;&lt;i))&#123;<br>        dc^=(<span class="hljs-number">1</span>&lt;&lt;i);<br>        <span class="hljs-built_in">ckmx</span>(ans,mxval[u][i]);<br>        u=fa[u][i];<br>    &#125;<br>    <span class="hljs-keyword">if</span>(u==v) <span class="hljs-keyword">return</span> ans;<br>    <span class="hljs-built_in">Ror</span>(i,<span class="hljs-number">0</span>,<span class="hljs-number">20</span>)&#123;<br>        <span class="hljs-keyword">if</span>(fa[u][i]!=fa[v][i])&#123;<br>            <span class="hljs-built_in">ckmx</span>(ans,<span class="hljs-built_in">max</span>(mxval[u][i],mxval[v][i]));<br>            u=fa[u][i];<br>            v=fa[v][i];<br>        &#125;<br>    &#125;<br>    <span class="hljs-built_in">ckmx</span>(ans,<span class="hljs-built_in">max</span>(mxval[u][<span class="hljs-number">0</span>],mxval[v][<span class="hljs-number">0</span>]));<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> father[x]==x?x:father[x]=<span class="hljs-built_in">find</span>(father[x]);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> fu=<span class="hljs-built_in">find</span>(u),fv=<span class="hljs-built_in">find</span>(v);<br>    <span class="hljs-keyword">if</span>(fu==fv) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">if</span>(sz[fu]&lt;sz[fv]) <span class="hljs-built_in">swap</span>(fu,fv);  <br>    sz[fu]+=sz[fv];<br>    <span class="hljs-keyword">if</span>(fun[mxi[fu]]&gt;fun[mxi[fv]]);<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(fun[mxi[fu]]&lt;fun[mxi[fv]]) mxi[fu]=mxi[fv],mx[fu]=mx[fv];<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(fun[mxi[fu]]==fun[mxi[fv]]) mx[fu]=<span class="hljs-built_in">max</span>(<span class="hljs-built_in">max</span>(mx[fu],mx[fv]),<span class="hljs-built_in">getmx</span>(mxi[fu],mxi[fv]));<br>    father[fv]=fu;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> f,<span class="hljs-keyword">int</span> val)</span></span>&#123;<br>    dep[u]=dep[f]+<span class="hljs-number">1</span>;<br>    fa[u][<span class="hljs-number">0</span>]=f;<br>    mxval[u][<span class="hljs-number">0</span>]=val;<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,<span class="hljs-number">20</span>)&#123;<br>        fa[u][i]=fa[fa[u][i<span class="hljs-number">-1</span>]][i<span class="hljs-number">-1</span>];<br>        mxval[u][i]=<span class="hljs-built_in">max</span>(mxval[u][i<span class="hljs-number">-1</span>],mxval[fa[u][i<span class="hljs-number">-1</span>]][i<span class="hljs-number">-1</span>]);<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> p:e[u])&#123;<br>        <span class="hljs-keyword">int</span> v=p.v;<br>        <span class="hljs-keyword">if</span>(v==f) <span class="hljs-keyword">continue</span>;<br>        <span class="hljs-built_in">dfs</span>(v,u,p.t);<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    n=<span class="hljs-built_in">read</span>(),q=<span class="hljs-built_in">read</span>();<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,n) fun[i]=<span class="hljs-built_in">read</span>();<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,n<span class="hljs-number">-1</span>)&#123;<br>        rec[i].u=<span class="hljs-built_in">read</span>();<br>        rec[i].v=<span class="hljs-built_in">read</span>();<br>        rec[i].c=<span class="hljs-built_in">read</span>();<br>        rec[i].t=<span class="hljs-built_in">read</span>();<br>        <span class="hljs-built_in">add</span>(rec[i].u,rec[i].v,rec[i].c,rec[i].t);<br>        <span class="hljs-built_in">add</span>(rec[i].v,rec[i].u,rec[i].c,rec[i].t);<br>    &#125;<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,q)&#123;<br>        qry[i].v=<span class="hljs-built_in">read</span>();<br>        qry[i].x=<span class="hljs-built_in">read</span>();<br>        qry[i].id=i;<br>    &#125;<br>    <span class="hljs-built_in">sort</span>(rec+<span class="hljs-number">1</span>,rec+n);<br>    <span class="hljs-built_in">sort</span>(qry+<span class="hljs-number">1</span>,qry+q+<span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">dfs</span>(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,n)&#123;<br>        sz[i]=<span class="hljs-number">1</span>;<br>        father[i]=i;<br>        mxi[i]=i;<br>        mx[i]=<span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">int</span> pos=<span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,q)&#123;<br>        <span class="hljs-keyword">while</span>(pos+<span class="hljs-number">1</span>&lt;=n&amp;&amp;rec[pos].c&gt;=qry[i].v)&#123;<br>            <span class="hljs-built_in">merge</span>(rec[pos].u,rec[pos].v);<br>            pos++;<br>        &#125;<br>        <span class="hljs-keyword">int</span> fx=<span class="hljs-built_in">find</span>(qry[i].x);<br>        qry[i].ansi=fun[mxi[fx]];<br>        qry[i].ans=<span class="hljs-built_in">max</span>(<span class="hljs-built_in">getmx</span>(qry[i].x,mxi[fx]),mx[fx]);<br>    &#125;<br>    <span class="hljs-built_in">sort</span>(qry+<span class="hljs-number">1</span>,qry+q+<span class="hljs-number">1</span>,reorder);<br>    <span class="hljs-built_in">For</span>(i,<span class="hljs-number">1</span>,q)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld %lld\n&quot;</span>,qry[i].ansi,qry[i].ans);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/01/%E9%A2%98%E8%A7%A3%20P7914%20%E3%80%90%5BCSP-S%202021%5D%20%E6%8B%AC%E5%8F%B7%E5%BA%8F%E5%88%97%E3%80%91/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">题解 P7914 【[CSP-S 2021] 括号序列】</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/21/%E9%A2%98%E8%A7%A3%20CF1583F%20%E3%80%90Defender%20of%20Childhood%20Dreams%E3%80%91/">
+                        <span class="hidden-mobile">题解 CF1583F 【Defender of Childhood Dreams】</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        还没有备案
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=没有备案"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>还没有备案</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+    <!-- cnzz Analytics Icon -->
+    <span id="cnzz_stat_icon_1280702615" style="display: none"></span>
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
